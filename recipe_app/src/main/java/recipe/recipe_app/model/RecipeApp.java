@@ -1,152 +1,133 @@
 package recipe.recipe_app.model;
 
 import jakarta.persistence.*;
-
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name="RECIPE")
+
 public class RecipeApp {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
-        private String name;
-        private String description;
-        private String instructions;
-        private int prepTime;
-        private int cookTime;
-        private int servings;
-        private String imageUrl;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String description;
+    private String instructions;
+    private int prepTime;
+    private int cookTime;
+    private int servings;
+    private String imageUrl;
 
-        @ManyToOne
-        private Category category;
-
-        @ManyToMany
-        private List<Ingredient> ingredients;
-
-        @ElementCollection
-        private List<String> tags;
+    private String category;
 
 
-        public Long getId() {
-                return id;
-        }
+    @ManyToMany
+    private List<Ingredient> ingredients;
 
-        public void setId(Long id) {
-                this.id = id;
-        }
+    @ElementCollection
+    private List<String> tags;
 
-        public String getName() {
-                return name;
-        }
+    public Long getId() {
+        return id;
+    }
 
-        public void setName(String name) {
-                this.name = name;
-        }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-        public String getDescription() {
-                return description;
-        }
+    public String getName() {
+        return name;
+    }
 
-        public void setDescription(String description) {
-                this.description = description;
-        }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-        public String getInstructions() {
-                return instructions;
-        }
+    public String getDescription() {
+        return description;
+    }
 
-        public void setInstructions(String instructions) {
-                this.instructions = instructions;
-        }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-        public int getPrepTime() {
-                return prepTime;
-        }
+    public String getInstructions() {
+        return instructions;
+    }
 
-        public void setPrepTime(int prepTime) {
-                this.prepTime = prepTime;
-        }
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
+    }
 
-        public int getCookTime() {
-                return cookTime;
-        }
+    public int getPrepTime() {
+        return prepTime;
+    }
 
-        public void setCookTime(int cookTime) {
-                this.cookTime = cookTime;
-        }
+    public void setPrepTime(int prepTime) {
+        this.prepTime = prepTime;
+    }
 
-        public int getServings() {
-                return servings;
-        }
+    public int getCookTime() {
+        return cookTime;
+    }
 
-        public void setServings(int servings) {
-                this.servings = servings;
-        }
+    public void setCookTime(int cookTime) {
+        this.cookTime = cookTime;
+    }
 
-        public String getImageUrl() {
-                return imageUrl;
-        }
+    public int getServings() {
+        return servings;
+    }
 
-        public void setImageUrl(String imageUrl) {
-                this.imageUrl = imageUrl;
-        }
+    public void setServings(int servings) {
+        this.servings = servings;
+    }
 
-        public Category getCategory() {
-                return category;
-        }
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
-        public void setCategory(Category category) {
-                this.category = category;
-        }
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
-        public List<Ingredient> getIngredients() {
-                return ingredients;
-        }
+    public String getCategory() {
+        return category;
+    }
 
-        public void setIngredients(List<Ingredient> ingredients) {
-                this.ingredients = ingredients;
-        }
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
-        public List<String> getTags() {
-                return tags;
-        }
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
 
-        public void setTags(List<String> tags) {
-                this.tags = tags;
-        }
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
 
-        public RecipeApp() {
+    public List<String> getTags() {
+        return tags;
+    }
 
-        }
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
 
-        public RecipeApp(Long id, String name, String description, String instructions, int prepTime, int cookTime, int servings, String imageUrl, Category category, List<Ingredient> ingredients, List<String> tags) {
-                this.id = id;
-                this.name = name;
-                this.description = description;
-                this.instructions = instructions;
-                this.prepTime = prepTime;
-                this.cookTime = cookTime;
-                this.servings = servings;
-                this.imageUrl = imageUrl;
-                this.category = category;
-                this.ingredients = ingredients;
-                this.tags = tags;
-        }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RecipeApp recipeApp = (RecipeApp) o;
+        return prepTime == recipeApp.prepTime && cookTime == recipeApp.cookTime && servings == recipeApp.servings && Objects.equals(id, recipeApp.id) && Objects.equals(name, recipeApp.name) && Objects.equals(description, recipeApp.description) && Objects.equals(instructions, recipeApp.instructions) && Objects.equals(imageUrl, recipeApp.imageUrl) && Objects.equals(category, recipeApp.category) && Objects.equals(ingredients, recipeApp.ingredients) && Objects.equals(tags, recipeApp.tags);
+    }
 
-
-        @Override
-        public boolean equals(Object o) {
-                if (this == o) return true;
-                if (o == null || getClass() != o.getClass()) return false;
-                RecipeApp recipeApp = (RecipeApp) o;
-                return prepTime == recipeApp.prepTime && cookTime == recipeApp.cookTime && servings == recipeApp.servings && Objects.equals(id, recipeApp.id) && Objects.equals(name, recipeApp.name) && Objects.equals(description, recipeApp.description) && Objects.equals(instructions, recipeApp.instructions) && Objects.equals(imageUrl, recipeApp.imageUrl) && Objects.equals(category, recipeApp.category) && Objects.equals(ingredients, recipeApp.ingredients) && Objects.equals(tags, recipeApp.tags);
-        }
-
-        @Override
-        public int hashCode() {
-                return Objects.hash(id, name, description, instructions, prepTime, cookTime, servings, imageUrl, category, ingredients, tags);
-        }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, description, instructions, prepTime, cookTime, servings, imageUrl, category, ingredients, tags);
+    }
 }
+
