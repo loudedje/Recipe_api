@@ -7,7 +7,7 @@ import java.util.Objects;
 @Entity
 @Table(name="RECIPE")
 
-public class RecipeApp {
+public class RecipeApp { 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +28,23 @@ public class RecipeApp {
 
     @ElementCollection
     private List<String> tags;
+
+    public RecipeApp() {
+
+    }
+    public RecipeApp(Long id, String name, String description, String instructions, int prepTime, int cookTime, int servings, String imageUrl, String category, List<Ingredient> ingredients, List<String> tags) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.instructions = instructions;
+        this.prepTime = prepTime;
+        this.cookTime = cookTime;
+        this.servings = servings;
+        this.imageUrl = imageUrl;
+        this.category = category;
+        this.ingredients = ingredients;
+        this.tags = tags;
+    }
 
     public Long getId() {
         return id;
