@@ -4,22 +4,28 @@ import jakarta.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.validation.constraints.Positive;
+import org.antlr.v4.runtime.misc.NotNull;
+import org.hibernate.validator.constraints.URL;
+
 @Entity
 @Table(name="RECIPE")
 
-public class RecipeApp { 
-
+public class RecipeApp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String description;
     private String instructions;
+    @Positive(message = "Preparation time must be a positive number")
     private int prepTime;
+    @Positive(message = "Cooking time must be a positive number")
     private int cookTime;
+    @Positive(message = "Servings must be a positive number")
     private int servings;
+    @URL(message = "Image URL must be a valid URL")
     private String imageUrl;
-
     private String category;
 
 
