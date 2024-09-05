@@ -2,11 +2,11 @@
 
 ## **Objetivo do Projeto**
 
-Desenvolver um aplicativo para gerenciar e compartilhar receitas culinárias. A aplicação permitirá aos usuários criar, editar, visualizar e buscar receitas, além de categorizar receitas e armazenar informações sobre ingredientes e instruções.
+Desenvolver um aplicativo para gerenciar e compartilhar receitas culinárias. A aplicação permitirá aos usuários criar, editar, visualizar e buscar receitas.
 
 ## **Funcionalidades Iniciais**
 
-- **Cadastro de Receitas:** 
+- **Cadastro de Receitas** 
 - **Busca e Filtragem de Receitas:** Pesquisa por nome, categoria e ingredientes.
 - **Gerenciamento de Ingredientes:** Cadastro e edição de ingredientes.
 - **Categorias e Tags:** Criação e gerenciamento de categorias e tags.
@@ -15,7 +15,6 @@ Desenvolver um aplicativo para gerenciar e compartilhar receitas culinárias. A 
 ## **Tecnologias Utilizadas**
 
 - Spring Boot
-- Spring Data JPA
 - Spring Security
 - Frontend React
 - MySql
@@ -43,24 +42,7 @@ src/
         │   └── user.html
         ├── application.properties
 ```
-
-## **Como Rodar a Aplicação**
-
-1. **Clone o Repositório:**
-   ```bash
-   git clone https://github.com/usuario/recipeApp.git
-   cd recipe-app
-   ```
-
-2. **Configurar o Banco de Dados:**
-   - Abra `src/main/resources/application.properties` e configure a conexão com o banco de dados.
-
-3. **Executar a Aplicação:**
-   ```bash
-   ./mvnw spring-boot:run
-   ```
-
-4. **Acessar a Aplicação:**
+ **Acessar a Aplicação:**
    - Navegue até [http://localhost:8080](http://localhost:8080) para acessar a aplicação.
 
 ## **Próximos Passos e Integrações Futuras**
