@@ -5,27 +5,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import recipe.recipe_app.model.RecipeApp;
+import recipe.recipe_app.model.Ingredient;
 import recipe.recipe_app.repository.RecipeRepository;
+import recipe.recipe_app.repository.IngredientRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RecipeService {
-    @Autowired
-    private RecipeRepository recipeRepository;
 
+    private final RecipeRepository recipeRepository;
+    private final IngredientRepository ingredientRepository;
+
+    @Autowired
+    public RecipeService(RecipeRepository recipeRepository, IngredientRepository ingredientRepository) {
+        this.recipeRepository = recipeRepository;
+        this.ingredientRepository = ingredientRepository;
+    }
 
     @Transactional
-    public RecipeApp saveRecipe(RecipeApp recipe){
+    public RecipeApp saveRecipe(RecipeApp recipe) {
         return recipeRepository.save(recipe);
     }
-    @Transactional
+
+    @Transactional(readOnly = true)
     public RecipeApp findRecipeById(long id) {
         return recipeRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Recipe not found with id " + id));
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<RecipeApp> findAll() {
         return recipeRepository.findAll();
     }
@@ -37,10 +47,8 @@ public class RecipeService {
 
     @Transactional
     public void updateRecipe(RecipeApp updatedRecipe, Long id) {
-        // Busca a receita existente no banco de dados
         RecipeApp existingRecipe = recipeRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Recipe not found with id " + id));
-        // Atualiza os campos da receita existente com os valores do updatedRecipe
         existingRecipe.setName(updatedRecipe.getName());
         existingRecipe.setDescription(updatedRecipe.getDescription());
         existingRecipe.setInstructions(updatedRecipe.getInstructions());
@@ -48,20 +56,18 @@ public class RecipeService {
         existingRecipe.setCookTime(updatedRecipe.getCookTime());
         existingRecipe.setServings(updatedRecipe.getServings());
         existingRecipe.setImageUrl(updatedRecipe.getImageUrl());
-    
-        // Atualiza os ingredientes, se necessário
-        if (updatedRecipe.getIngredients() != null) {
-            existingRecipe.setIngredients(updatedRecipe.getIngredients());
-            existingRecipe.getIngredients().forEach(ingredient -> {
-                ingredient.setRecipe(existingRecipe); // Relaciona cada ingrediente à receita atualizada
-            });
-        }
-        // Persiste a receita atualizada no banco de dados
         recipeRepository.save(existingRecipe);
     }
-    
 
-    
+    // Métodos relacionados a ingredientes
+
+    @Transactional(readOnly = true)
+    public Optional<Ingredient> findIngredientByNameQuantityAndUnit(String name, double quantity, String unit) {
+        return ingredientRepository.findByNameAndQuantityAndUnit(name, quantity, unit);
+    }
+
+    @Transactional
+    public Ingredient saveIngredient(Ingredient ingredient) {
+        return ingredientRepository.save(ingredient);
+    }
 }
-
-
